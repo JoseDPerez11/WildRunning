@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WildRunning" parent="Theme.Material3.DayNight.NoActionBar">
+        <!--<style name="Theme.WildRunning" parent="Base.Theme.WildRunning" /> -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/orange</item>
+
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

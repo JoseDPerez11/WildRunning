@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406036160583",
+    "project_id": "wildrunning-dbfeb",
+    "storage_bucket": "wildrunning-dbfeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406036160583:android:c038b731b67ba669051162",
+        "android_client_info": {
+          "package_name": "com.dsa.wildRunning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0gm9CCMor_ZfeqtJBVgvtyeLm7jl7OFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
