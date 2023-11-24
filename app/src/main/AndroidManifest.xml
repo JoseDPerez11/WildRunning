@@ -13,6 +13,9 @@
         android:theme="@style/Base.Theme.WildRunning"
         tools:targetApi="31">
         <activity
+            android:name=".nav_header_main"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity

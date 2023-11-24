@@ -59,6 +59,8 @@ dependencies {
 
     implementation("com.facebook.android:facebook-login:latest.release")
 
+    implementation("me.tankery.lib:circularSeekBar:1.3.2")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
