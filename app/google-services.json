@@ -12,7 +12,20 @@
           "package_name": "com.dsa.wildRunning"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "406036160583-tk16n4atqdk87iikafa2vndfkjmiq3ad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dsa.wildRunning",
+            "certificate_hash": "0d3b0ef186d15b95a59d9c78a4d69b22ad42373a"
+          }
+        },
+        {
+          "client_id": "406036160583-tvlikmk7lrfg48hepsu1i7vj40os5tqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD0gm9CCMor_ZfeqtJBVgvtyeLm7jl7OFk"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406036160583-tvlikmk7lrfg48hepsu1i7vj40os5tqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

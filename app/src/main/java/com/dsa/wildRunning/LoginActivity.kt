@@ -12,7 +12,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -32,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var lyTerms: LinearLayout
 
     private lateinit var mAuth: FirebaseAuth
+
+    private var RESULT_CODE_GOOGLE_SIGN_IN = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         email = etEmail.text.toString()
         password = etPassword.text.toString()
 
-        if (TextUtils.isEmpty(password) || ValidateEmail.isEmail(email) == false) {
+        if (TextUtils.isEmpty(password) || !ValidateEmail.isEmail(email)) {
             tvLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.gray))
             tvLogin.isEnabled = false
         } else {
@@ -145,10 +152,10 @@ class LoginActivity : AppCompatActivity() {
 
     fun forgotPassword(view: View) {
         //startActivity(Intent(this, ForgotPasswordActivity::class.java))
-        reserPassword()
+        resetPassword()
     }
 
-    private fun reserPassword() {
+    private fun resetPassword() {
         var e = etEmail.text.toString()
         if (!TextUtils.isEmpty(e)) {
             mAuth.sendPasswordResetEmail(e)
@@ -159,4 +166,45 @@ class LoginActivity : AppCompatActivity() {
         } else Toast.makeText(this, "Indica un email", Toast.LENGTH_SHORT).show()
     }
 
+    fun callSignInGoogle(view: View) {
+        signInGoogle()
+    }
+
+    private fun signInGoogle() {
+
+        //configure google sign in
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        var googleSignInClient = GoogleSignIn.getClient(this, gso)
+        googleSignInClient.signOut()
+
+        startActivityForResult(googleSignInClient.signInIntent, RESULT_CODE_GOOGLE_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        //result returned from lauching the intent from GoogleSignInApi.getSignInIntent
+        if (requestCode == RESULT_CODE_GOOGLE_SIGN_IN) {
+            try {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                // google sign in was successful, authenticate with firebase
+                val account = task.getResult(ApiException::class.java)!!
+
+                if (account != null) {
+                    email = account.email!!
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    mAuth.signInWithCredential(credential).addOnCompleteListener {
+                        if (it.isSuccessful) goHome(email, "Google")
+                        else Toast.makeText(this, "Error en la conexion con Google", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: ApiException) {
+                Toast.makeText(this, "Error en la conexion con Google", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
