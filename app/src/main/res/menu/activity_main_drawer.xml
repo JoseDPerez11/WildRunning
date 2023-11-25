@@ -18,7 +18,7 @@
             <item android:id="@+id/nav_item_clearpreferences"
                 android:icon="@drawable/ic_popup_sync"
                 android:title="@string/menu_clearpreferences" />
-            <item android:id="@+id/signout"
+            <item android:id="@+id/nav_item_signout"
                 android:icon="@drawable/logout"
                 android:title="@string/menu_signout" />
         </menu>

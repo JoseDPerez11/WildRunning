@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.dsa.wildRunning.LoginActivity.Companion.useremail
@@ -61,6 +62,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("Not yet implemented")
+
+        when (item.itemId) {
+            R.id.nav_item_record -> callRecordActivity()
+            R.id.nav_item_signout -> signOut()
+        }
+
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun callRecordActivity() {
+        val intent = Intent(this, RecordActivity::class.java)
     }
 }
