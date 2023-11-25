@@ -45,7 +45,7 @@
                     android:paddingRight="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
-                    android:translationz="10dp"/>
+                    android:translationZ="10dp"/>
 
                 <ImageView
                     android:id="@+id/ivSportBike"
@@ -210,7 +210,7 @@
                     android:paddingRight="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
-                    android:translationz="10dp"/>
+                    android:translationZ="10dp"/>
 
                 <ImageView
                     android:id="@+id/ivSportRollerSkate"
@@ -370,7 +370,7 @@
                     android:paddingRight="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
-                    android:translationz="10dp"/>
+                    android:translationZ="10dp"/>
 
                 <ImageView
                     android:id="@+id/ivSportRunning"
