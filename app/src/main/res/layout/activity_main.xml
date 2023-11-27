@@ -153,7 +153,7 @@
                     android:id="@+id/rlCurrentAvg"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:orientation="vertical"
+                    android:orientation="vertical"
                     android:layout_margin="5dp"
                     android:layout_gravity="center|right">
 
@@ -251,7 +251,7 @@
                     android:id="@+id/rlCurrentSpeed"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:orientation="vertical"
+                    android:orientation="vertical"
                     android:layout_margin="5dp"
                     android:layout_gravity="center|right" >
 
@@ -371,7 +371,7 @@
                 android:id="@+id/lyChrono"
                 android:layout_width="match_parent"
                 android:layout_height="87dp"
-                app:orientation="horizontal"
+                android:orientation="horizontal"
                 android:layout_marginTop="198dp"
                 android:gravity="top"
                 android:background="@color/gray_dark">
@@ -420,6 +420,247 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="287dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/gray_dark"
+                android:paddingBottom="60dp"
+                android:gravity="center">
+
+                <!-- map -->
+                <LinearLayout
+                    android:id="@+id/lyMapContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:translationY="0dp"
+                    android:background="@color/transparent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/lyMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="420dp"
+                        android:gravity="left"
+                        android:translationY="0dp"
+                        android:background="@color/transparent"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/lyFragmentMap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:translationY="300dp"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <!--
+                            <fragment
+                                android:id="@+id/fragmentMap"
+                                android:name="com.google.android.gms.maps.SupportMapFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="420dp"
+                                tools:context=".MainActivity"
+                                map:mapType="normal"
+                                map:uiCompass="false"
+                                map:uiRotateGestures="true"
+                                map:uiScrollGestures="true"
+                                map:uiTiltGestures="true"
+                                map:uiZoomControls="true"
+                                map:uiZoomGestures="true"/>
+                            -->
+                            <TextView
+                                android:id="@+id/tvMapCenter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:text="CENTRAR"
+                                android:paddingBottom="10dp"
+                                android:textSize="16sp"
+                                android:translationZ="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="15dp"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/centermap_icon"
+                                android:paddingRight="20dp"
+                                android:layout_marginLeft="5dp"
+                                android:translationY="-57dp"
+                                android:background="@color/blue"
+                                android:textColor="@color/white"
+                                android:onClick="callCenterMap" />
+
+                            <ImageView
+                                android:id="@+id/ivTypeMap"
+                                android:layout_width="55dp"
+                                android:layout_height="60dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="-470dp"
+                                android:src="@drawable/map_type_normal"
+                                android:translationZ="10dp"
+                                android:onClick="changeTypeMap"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyOpenerMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:translationZ="15dp"
+                        android:gravity="left"
+                        android:background="@color/transparent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/lyOpenerLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:background="@color/white"
+                            android:orientation="vertical" />
+
+                        <LinearLayout
+                            android:id="@+id/lyOpenerButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:translationY="-5dp"
+                            android:orientation="horizontal"
+                            android:onClick="callShowHideMap">
+                            <LinearLayout
+                                android:id="@+id/lyOpenStart"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:translationY="-30dp"
+                                android:layout_marginLeft="6dp"
+                                android:rotation="45"
+                                android:background="@color/white"
+                                android:orientation="vertical" />
+                            <LinearLayout
+                                android:id="@+id/lyOpenerTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginLeft="-25dp"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:translationZ="15dp" >
+
+                                <ImageView
+                                    android:id="@+id/ivMapIcon"
+                                    android:layout_width="12dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginTop="2dp"
+                                    android:src="@drawable/map_icon" />
+                                <TextView
+                                    android:id="@+id/tvMapTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="MAPA"
+                                    android:layout_marginLeft="5dp"
+                                    android:textAlignment="center"
+                                    android:background="@color/gray_dark"
+                                    android:textSize="14sp" />
+                                <ImageView
+                                    android:id="@+id/ivOpenClose"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/opener_icon_dark"
+                                    android:rotation="0"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/lyOpenEnd"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:translationY="-30dp"
+                                android:layout_marginLeft="30dp"
+                                android:rotation="45"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:translationZ="0dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- start, camara, sports, map -->
+                <LinearLayout
+                    android:id="@+id/rlStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_gravity="top|center"
+                    android:gravity="top|center"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="30dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_dark" >
+
+                    <!-- boton de start y camara -->
+                    <RelativeLayout
+                        android:id="@+id/rlStartCamara"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:gravity="center|center"
+                        android:translationZ="10dp" >
+                        
+                        <LinearLayout
+                            android:id="@+id/btStart"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:gravity="center|center"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/circle_background_toplay"
+                            android:enabled="false"
+                            android:onClick="startOrStopButtonClicked"
+                            android:textColor="@color/white" >
+
+                            <TextView
+                                android:id="@+id/btStartLabel"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:gravity="center"
+                                android:text="@string/start"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="30sp"
+                                android:textStyle="bold"
+                                android:translationY="-5dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fbCamera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/ic_menu_camera"
+                            app:maxImageSize="40dp"
+                            android:translationZ="12dp"
+                            android:translationX="75dp"
+                            android:onClick="takePicture" />
+
+                    </RelativeLayout>
+
+                    <!-- sports -->
+                    <LinearLayout
+                        android:id="@+id/lySports"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:background="@color/gray_dark"
+                        android:gravity="center">
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
 
         <TextView
@@ -448,12 +689,11 @@
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <!--
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            app:menu="@menu/activity_main_drawer" />-->
+            app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
