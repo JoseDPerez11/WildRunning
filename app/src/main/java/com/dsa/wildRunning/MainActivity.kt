@@ -27,6 +27,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initNavigationView()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START)
+        else
+            signOut()
+    }
+
     private fun initToolBar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)

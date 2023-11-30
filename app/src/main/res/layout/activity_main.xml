@@ -429,7 +429,7 @@
                 android:paddingBottom="60dp"
                 android:gravity="center">
 
-                <!-- map -->
+                <!-- Map -->
                 <LinearLayout
                     android:id="@+id/lyMapContainer"
                     android:layout_width="match_parent"
@@ -438,7 +438,6 @@
                     android:translationY="0dp"
                     android:background="@color/transparent"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:id="@+id/lyMap"
                         android:layout_width="match_parent"
@@ -446,16 +445,14 @@
                         android:gravity="left"
                         android:translationY="0dp"
                         android:background="@color/transparent"
-                        android:orientation="vertical" >
-
+                        android:orientation="vertical">
                         <LinearLayout
                             android:id="@+id/lyFragmentMap"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:translationY="300dp"
+                            android:translationY="-300dp"
                             android:gravity="left"
                             android:orientation="vertical">
-
                             <!--
                             <fragment
                                 android:id="@+id/fragmentMap"
@@ -471,11 +468,12 @@
                                 map:uiZoomControls="true"
                                 map:uiZoomGestures="true"/>
                             -->
+
                             <TextView
                                 android:id="@+id/tvMapCenter"
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
-                                android:text="CERRAR"
+                                android:text="CENTRAR"
                                 android:paddingBottom="10dp"
                                 android:textSize="16sp"
                                 android:translationZ="10dp"
@@ -488,8 +486,7 @@
                                 android:translationY="-57dp"
                                 android:background="@color/blue"
                                 android:textColor="@color/white"
-                                android:onClick="callCenterMap" />
-
+                                android:onClick="callCenterMap"/>
                             <ImageView
                                 android:id="@+id/ivTypeMap"
                                 android:layout_width="55dp"
@@ -501,8 +498,8 @@
                                 android:translationZ="10dp"
                                 android:onClick="changeTypeMap"/>
                         </LinearLayout>
-                    </LinearLayout>
 
+                    </LinearLayout>
                     <LinearLayout
                         android:id="@+id/lyOpenerMap"
                         android:layout_width="match_parent"
@@ -516,8 +513,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="5dp"
                             android:background="@color/white"
-                            android:orientation="vertical" />
-
+                            android:orientation="vertical" >
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/lyOpenerButton"
                             android:layout_width="wrap_content"
@@ -533,22 +530,21 @@
                                 android:layout_marginLeft="6dp"
                                 android:rotation="45"
                                 android:background="@color/white"
-                                android:orientation="vertical" />
+                                android:orientation="vertical"/>
                             <LinearLayout
                                 android:id="@+id/lyOpenerTitle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="22dp"
                                 android:layout_marginLeft="-25dp"
+                                android:layout_height="22dp"
                                 android:background="@color/white"
                                 android:orientation="horizontal"
-                                android:translationZ="15dp" >
-
+                                android:translationZ="15dp">
                                 <ImageView
                                     android:id="@+id/ivMapIcon"
                                     android:layout_width="12dp"
                                     android:layout_height="15dp"
                                     android:layout_marginTop="2dp"
-                                    android:src="@drawable/map_icon" />
+                                    android:src="@drawable/map_icon"/>
                                 <TextView
                                     android:id="@+id/tvMapTitle"
                                     android:layout_width="wrap_content"
@@ -557,8 +553,8 @@
                                     android:text="MAPA"
                                     android:layout_marginLeft="5dp"
                                     android:textAlignment="center"
-                                    android:background="@color/gray_dark"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/gray_dark"
+                                    android:textSize="14sp"/>
                                 <ImageView
                                     android:id="@+id/ivOpenClose"
                                     android:layout_width="20dp"
@@ -566,7 +562,6 @@
                                     android:layout_marginLeft="10dp"
                                     android:src="@drawable/opener_icon_dark"
                                     android:rotation="0"/>
-
                             </LinearLayout>
                             <LinearLayout
                                 android:id="@+id/lyOpenEnd"
@@ -577,7 +572,7 @@
                                 android:rotation="45"
                                 android:background="@color/white"
                                 android:orientation="vertical"
-                                android:translationZ="0dp" />
+                                android:translationZ="0dp"/>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -2076,6 +2071,7 @@
                     android:textSize="16sp"
                     android:onClick="deleteRun"
                     android:layout_marginRight="40dp"/>
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fbFinalPicture"
                     android:layout_width="wrap_content"
@@ -2085,6 +2081,7 @@
                     android:src="@android:drawable/ic_menu_camera"
                     app:maxImageSize="40dp"
                     android:onClick="takePicture"/>
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fbShareRun"
                     android:layout_width="wrap_content"
@@ -2105,11 +2102,11 @@
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-        <!--<com.google.android.material.navigation.NavigationView
+        <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            app:menu="@menu/activity_main_drawer" />-->
+            app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
