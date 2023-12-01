@@ -1,6 +1,5 @@
 package com.dsa.wildRunning
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,12 +17,21 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.dsa.wildRunning.LoginActivity.Companion.useremail
+import com.dsa.wildRunning.Utility.animateViewofFloat
+import com.dsa.wildRunning.Utility.animateViewofInt
 import com.dsa.wildRunning.Utility.setHeightLinearLayout
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
+
+    private lateinit var swIntervalMode: Switch
+    private lateinit var swChallenges: Switch
+
+    private var challengeDistance: Float = 0f
+    private var challengeDuration: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -86,6 +94,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lyChallenges.translationY = -300f
         lySettingsVolumes.translationY = -300f
 
+        swIntervalMode = findViewById(R.id.swIntervalMode)
+        swChallenges = findViewById(R.id.swChallenges)
+
     }
 
     fun callSignOut(view: View) {
@@ -113,29 +124,42 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val intent = Intent(this, RecordActivity::class.java)
     }
 
+    fun inflateChallenge(v: View) {
+        val lyChallengesSpace = findViewById<LinearLayout>(R.id.lyChallengesSpace)
+        val lyChallenges = findViewById<LinearLayout>(R.id.lyChallenges)
+        if (swChallenges.isChecked) {
+            animateViewofInt(swChallenges, "textColor", ContextCompat.getColor(this, R.color.orange), 500)
+            setHeightLinearLayout(lyChallengesSpace, 750)
+            animateViewofFloat(lyChallenges, "translationY", 0f, 500)
+        } else {
+            swChallenges.setTextColor(ContextCompat.getColor(this, R.color.white))
+            setHeightLinearLayout(lyChallengesSpace, 0)
+            lyChallenges.translationY=-300f
+
+        }
+    }
     fun inflateVolumes(v: View) {
         var swVolumes = findViewById<Switch>(R.id.swVolumes)
         var lySettingsVolumesSpace = findViewById<LinearLayout>(R.id.lySettingsVolumesSpace)
         var lySettingsVolumes = findViewById<LinearLayout>(R.id.lySettingsVolumes)
 
         if (swVolumes.isChecked) {
-            ObjectAnimator.ofInt(swVolumes, "textColor", ContextCompat.getColor(this, R.color.orange)).apply {
-                duration = 500
-                start()
-            }
+            animateViewofInt(swVolumes, "textColor", ContextCompat.getColor(this, R.color.orange), 500)
 
             var swIntervalMode = findViewById<Switch>(R.id.swIntervalMode)
             var value = 400
             if (swIntervalMode.isChecked) value = 600
             setHeightLinearLayout(lySettingsVolumesSpace, value)
-            ObjectAnimator.ofFloat(lySettingsVolumes, "translationY", 0f).apply {
-                duration = 500
-                start()
-            }
+            animateViewofFloat(lySettingsVolumes, "translationY", 0f, 500)
+
         } else {
             swVolumes.setTextColor(ContextCompat.getColor(this, R.color.white))
             setHeightLinearLayout(lySettingsVolumesSpace, 0)
             lySettingsVolumes.translationY = -300f
+
+            challengeDistance = 0f
+            challengeDuration = 0
+
         }
 
     }
