@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.NumberPicker
 import android.widget.Switch
 import android.widget.TextView
 
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.dsa.wildRunning.LoginActivity.Companion.useremail
 import com.dsa.wildRunning.Utility.animateViewofFloat
 import com.dsa.wildRunning.Utility.animateViewofInt
+import com.dsa.wildRunning.Utility.getSecFromWatch
 import com.dsa.wildRunning.Utility.setHeightLinearLayout
 import com.google.android.material.navigation.NavigationView
 
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var swIntervalMode: Switch
     private lateinit var swChallenges: Switch
+
+    private lateinit var npChallengeDistance: NumberPicker
+    private lateinit var npChallengeDurationHH: NumberPicker
+    private lateinit var npChallengeDurationMM: NumberPicker
+    private lateinit var npChallengeDurationSS: NumberPicker
 
     private var challengeDistance: Float = 0f
     private var challengeDuration: Int = 0
@@ -97,6 +104,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         swIntervalMode = findViewById(R.id.swIntervalMode)
         swChallenges = findViewById(R.id.swChallenges)
 
+        npChallengeDistance = findViewById(R.id.npChallengeDistance)
+        npChallengeDurationHH = findViewById(R.id.npChallengeDurationHH)
+        npChallengeDurationMM = findViewById(R.id.npChallengeDurationMM)
+        npChallengeDurationSS = findViewById(R.id.npChallengeDurationSS)
+
     }
 
     fun callSignOut(view: View) {
@@ -124,7 +136,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val intent = Intent(this, RecordActivity::class.java)
     }
 
-    fun inflateChallenge(v: View) {
+    fun inflateChallenges(v: View) {
         val lyChallengesSpace = findViewById<LinearLayout>(R.id.lyChallengesSpace)
         val lyChallenges = findViewById<LinearLayout>(R.id.lyChallenges)
         if (swChallenges.isChecked) {
@@ -138,7 +150,63 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         }
     }
-    fun inflateVolumes(v: View) {
+
+    fun showDuration(v: View) {
+        showChallenge("duration")
+    }
+    fun showDistance(v: View) {
+        showChallenge("distance")
+    }
+
+    private fun showChallenge(option: String) {
+        var lyChallengeDuration = findViewById<LinearLayout>(R.id.lyChallengeDuration)
+        var lyChallengeDistance = findViewById<LinearLayout>(R.id.lyChallengeDistance)
+        var tvChallengeDuration = findViewById<TextView>(R.id.tvChallengeDuration)
+        var tvChallengeDistance = findViewById<TextView>(R.id.tvChallengeDistance)
+
+        when(option) {
+            "duration" -> {
+                lyChallengeDuration.translationZ = 5f
+                lyChallengeDistance.translationZ = 0f
+
+                tvChallengeDuration.setTextColor(ContextCompat.getColor(this, R.color.orange))
+                tvChallengeDuration.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_dark))
+
+                tvChallengeDistance.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tvChallengeDistance.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_medium))
+
+                challengeDistance = 0f
+                getChallengeDuration(npChallengeDurationHH.value, npChallengeDurationMM.value, npChallengeDurationSS.value)
+
+            }
+            "distance" -> {
+                lyChallengeDistance.translationZ = 5f
+                lyChallengeDuration.translationZ = 0f
+
+                tvChallengeDuration.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tvChallengeDuration.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_medium))
+
+                tvChallengeDistance.setTextColor(ContextCompat.getColor(this, R.color.orange))
+                tvChallengeDistance.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_dark))
+
+                challengeDuration = 0
+                challengeDistance = npChallengeDistance.value.toFloat()
+            }
+        }
+    }
+
+    private fun getChallengeDuration(hh: Int, mm: Int, ss: Int) {
+        var hours: String = hh.toString()
+        if (hh<10) hours= "0"+hours
+        var minutes: String = mm.toString()
+        if (mm<10) minutes= "0"+minutes
+        var seconds: String = ss.toString()
+        if (ss<10) seconds = "0"+seconds
+
+        challengeDuration = getSecFromWatch("${hours}:${minutes}:${seconds}")
+    }
+
+    fun inflateVolumnes(v: View) {
         var swVolumes = findViewById<Switch>(R.id.swVolumes)
         var lySettingsVolumesSpace = findViewById<LinearLayout>(R.id.lySettingsVolumesSpace)
         var lySettingsVolumes = findViewById<LinearLayout>(R.id.lySettingsVolumes)

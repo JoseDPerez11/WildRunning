@@ -28,4 +28,16 @@ object Utility {
         }
     }
 
+    fun getSecFromWatch(watch: String): Int{
+        var secs = 0
+        var w: String = watch
+        if (w.length==5) w="00:"+w
+
+        //00:00:00
+        secs += w.subSequence(0,2).toString().toInt() * 3600
+        secs += w.subSequence(3,5).toString().toInt() * 60
+        secs += w.subSequence(6,8).toString().toInt()
+        return secs
+    }
+
 }
