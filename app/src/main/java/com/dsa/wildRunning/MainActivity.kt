@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var swIntervalMode: Switch
     private lateinit var swChallenges: Switch
+    private lateinit var swVolumes: Switch
 
     private lateinit var npChallengeDistance: NumberPicker
     private lateinit var npChallengeDurationHH: NumberPicker
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private var challengeDistance: Float = 0f
     private var challengeDuration: Int = 0
+
+    private lateinit var tvChrono: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +82,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvUser.text = useremail
     }
 
+    private fun initStopWatch() {
+        tvChrono.text = getString(R.string.init_stop_watch_value)
+    }
+
     private fun initObjects() {
+
+        tvChrono = findViewById(R.id.tvChrono)
+        tvChrono.setTextColor(ContextCompat.getColor(this, R.color.white))
+        initStopWatch()
 
         var lyMap = findViewById<LinearLayout>(R.id.lyMap)
         var lyFragmentMap = findViewById<LinearLayout>(R.id.lyFragmentMap)
@@ -89,12 +100,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val lyChallenges = findViewById<LinearLayout>(R.id.lyChallenges)
         val lySettingsVolumesSpace = findViewById<LinearLayout>(R.id.lySettingsVolumesSpace)
         val lySettingsVolumes = findViewById<LinearLayout>(R.id.lySettingsVolumes)
+        val lySoftTrack = findViewById<LinearLayout>(R.id.lySoftTrack)
+        val lySoftVolume = findViewById<LinearLayout>(R.id.lySoftVolume)
 
 
         setHeightLinearLayout(lyMap, 0)
         setHeightLinearLayout(lyIntervalModeSpace,0)
         setHeightLinearLayout(lyChallengesSpace,0)
         setHeightLinearLayout(lySettingsVolumesSpace,0)
+        setHeightLinearLayout(lySoftTrack, 0)
+        setHeightLinearLayout(lySoftVolume, 0)
 
         lyFragmentMap.translationY = -300f
         lyIntervalMode.translationY = -300f
@@ -103,6 +118,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         swIntervalMode = findViewById(R.id.swIntervalMode)
         swChallenges = findViewById(R.id.swChallenges)
+        swVolumes = findViewById(R.id.swVolumes)
 
         npChallengeDistance = findViewById(R.id.npChallengeDistance)
         npChallengeDurationHH = findViewById(R.id.npChallengeDurationHH)
@@ -134,6 +150,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun callRecordActivity() {
         val intent = Intent(this, RecordActivity::class.java)
+    }
+
+    fun inflateIntervalMode(v: View) {
+        val lyIntervalMode = findViewById<LinearLayout>(R.id.lyIntervalMode)
+        val lyIntervalModeSpace = findViewById<LinearLayout>(R.id.lyIntervalModeSpace)
+        val lySoftTrack = findViewById<LinearLayout>(R.id.lySoftTrack)
+        val lySoftVolume = findViewById<LinearLayout>(R.id.lySoftVolume)
+        var tvRounds =findViewById<TextView>(R.id.tvRounds)
+
+        if (swIntervalMode.isChecked) {
+            animateViewofInt(swIntervalMode, "textColor", ContextCompat.getColor(this, R.color.orange), 500)
+            setHeightLinearLayout(lyIntervalModeSpace, 600)
+            animateViewofFloat(lyIntervalMode, "translationY", 0f, 500)
+            animateViewofFloat(tvChrono, "translationX", -100f, 500)
+            tvRounds.setText(R.string.rounds)
+            animateViewofInt(tvRounds, "textColor", ContextCompat.getColor(this, R.color.white), 500)
+
+            setHeightLinearLayout(lySoftTrack, 120)
+            setHeightLinearLayout(lySoftVolume, 200)
+            if (swVolumes.isChecked) {
+                var lySettingsVolumesSpace = findViewById<LinearLayout>(R.id.lySettingsVolumesSpace)
+                setHeightLinearLayout(lySettingsVolumesSpace, 600)
+            }
+
+        } else {
+            swIntervalMode.setTextColor(ContextCompat.getColor(this, R.color.white))
+            setHeightLinearLayout(lyIntervalModeSpace, 0)
+            lyIntervalMode.translationY = -200f
+            animateViewofFloat(tvChrono, "translationX", 0f, 500)
+            tvRounds.text = ""
+            setHeightLinearLayout(lySoftTrack, 0)
+            setHeightLinearLayout(lySoftVolume, 0)
+        }
+
     }
 
     fun inflateChallenges(v: View) {
@@ -207,7 +257,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun inflateVolumnes(v: View) {
-        var swVolumes = findViewById<Switch>(R.id.swVolumes)
         var lySettingsVolumesSpace = findViewById<LinearLayout>(R.id.lySettingsVolumesSpace)
         var lySettingsVolumes = findViewById<LinearLayout>(R.id.lySettingsVolumes)
 
