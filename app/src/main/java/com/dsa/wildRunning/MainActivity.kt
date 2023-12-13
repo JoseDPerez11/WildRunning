@@ -109,12 +109,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvChrono.text = getString(R.string.init_stop_watch_value)
     }
 
-    private fun initObjects() {
-
+    private fun initChrono() {
         tvChrono = findViewById(R.id.tvChrono)
         tvChrono.setTextColor(ContextCompat.getColor(this, R.color.white))
         initStopWatch()
+    }
 
+    private fun hideLayouts() {
         var lyMap = findViewById<LinearLayout>(R.id.lyMap)
         var lyFragmentMap = findViewById<LinearLayout>(R.id.lyFragmentMap)
         var lyIntervalModeSpace = findViewById<LinearLayout>(R.id.lyIntervalModeSpace)
@@ -137,7 +138,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lyIntervalMode.translationY = -300f
         lyChallenges.translationY = -300f
         lySettingsVolumes.translationY = -300f
+    }
 
+    private fun initMetrics() {
         csbCurrentAvgSpeed = findViewById(R.id.csbCurrentAvgSpeed)
         csbRecordAvgSpeed = findViewById(R.id.csbRecordAvgSpeed)
 
@@ -158,20 +161,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvDistanceRecord.text = ""
         tvAvgSpeedRecord.text = ""
         tvMaxSpeedRecord.text = ""
+    }
 
+    private fun initSwitchs() {
         swIntervalMode = findViewById(R.id.swIntervalMode)
         swChallenges = findViewById(R.id.swChallenges)
         swVolumes = findViewById(R.id.swVolumes)
+    }
 
+    private fun initIntervalMode() {
         npDurationInterval = findViewById(R.id.npDurationInterval)
         tvRunningTime = findViewById(R.id.tvRunningTime)
         tvWalkingTime = findViewById(R.id.tvWalkingTime)
         csbRunWalk = findViewById(R.id.csbRunWalk)
-
-        npChallengeDistance = findViewById(R.id.npChallengeDistance)
-        npChallengeDurationHH = findViewById(R.id.npChallengeDurationHH)
-        npChallengeDurationMM = findViewById(R.id.npChallengeDurationMM)
-        npChallengeDurationSS = findViewById(R.id.npChallengeDurationSS)
 
         csbRunWalk.setOnSeekBarChangeListener(object: OnCircularSeekBarChangeListener {
 
@@ -198,6 +200,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    private fun initChallengeMode() {
+        npChallengeDistance = findViewById(R.id.npChallengeDistance)
+        npChallengeDurationHH = findViewById(R.id.npChallengeDurationHH)
+        npChallengeDurationMM = findViewById(R.id.npChallengeDurationMM)
+        npChallengeDurationSS = findViewById(R.id.npChallengeDurationSS)
+    }
+    private fun initObjects() {
+
+        initChrono()
+        hideLayouts()
+        initMetrics()
+        initSwitchs()
+        initIntervalMode()
+        initChallengeMode()
 
     }
 
