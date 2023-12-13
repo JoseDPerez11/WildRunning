@@ -23,10 +23,27 @@ import com.dsa.wildRunning.Utility.animateViewofInt
 import com.dsa.wildRunning.Utility.getSecFromWatch
 import com.dsa.wildRunning.Utility.setHeightLinearLayout
 import com.google.android.material.navigation.NavigationView
+import me.tankery.lib.circularseekbar.CircularSeekBar
+import me.tankery.lib.circularseekbar.CircularSeekBar.OnCircularSeekBarChangeListener
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
+
+    private lateinit var csbChallengeDistance: CircularSeekBar
+    private lateinit var csbCurrentDistance: CircularSeekBar
+    private lateinit var csbRecordDistance: CircularSeekBar
+
+    private lateinit var csbCurrentAvgSpeed: CircularSeekBar
+    private lateinit var csbRecordAvgSpeed: CircularSeekBar
+
+    private lateinit var csbCurrentSpeed: CircularSeekBar
+    private lateinit var csbCurrentMaxSpeed: CircularSeekBar
+    private lateinit var csbRecordSpeed: CircularSeekBar
+
+    private lateinit var tvDistanceRecord: TextView
+    private lateinit var tvAvgSpeedRecord: TextView
+    private lateinit var tvMaxSpeedRecord: TextView
 
     private lateinit var swIntervalMode: Switch
     private lateinit var swChallenges: Switch
@@ -42,12 +59,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var tvChrono: TextView
 
+    private lateinit var npDurationInterval: NumberPicker
+    private lateinit var tvRunningTime: TextView
+    private lateinit var tvWalkingTime: TextView
+    private lateinit var csbRunWalk: CircularSeekBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolBar()
         initObjects()
+
+        initToolBar()
         initNavigationView()
     }
 
@@ -103,7 +126,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val lySoftTrack = findViewById<LinearLayout>(R.id.lySoftTrack)
         val lySoftVolume = findViewById<LinearLayout>(R.id.lySoftVolume)
 
-
         setHeightLinearLayout(lyMap, 0)
         setHeightLinearLayout(lyIntervalModeSpace,0)
         setHeightLinearLayout(lyChallengesSpace,0)
@@ -116,14 +138,66 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lyChallenges.translationY = -300f
         lySettingsVolumes.translationY = -300f
 
+        csbCurrentAvgSpeed = findViewById(R.id.csbCurrentAvgSpeed)
+        csbRecordAvgSpeed = findViewById(R.id.csbRecordAvgSpeed)
+
+        csbCurrentSpeed = findViewById(R.id.csbCurrentSpeed)
+        csbCurrentMaxSpeed = findViewById(R.id.csbCurrentMaxSpeed)
+        csbRecordSpeed = findViewById(R.id.csbRecordSpeed)
+
+        csbCurrentDistance.progress = 0f
+        csbChallengeDistance.progress = 0f
+        csbCurrentAvgSpeed.progress = 0f
+        csbCurrentSpeed.progress = 0f
+        csbCurrentMaxSpeed.progress = 0f
+
+        tvDistanceRecord = findViewById(R.id.tvDistanceRecord)
+        tvAvgSpeedRecord = findViewById(R.id.tvAvgSpeedRecord)
+        tvMaxSpeedRecord = findViewById(R.id.tvMaxSpeedRecord)
+
+        tvDistanceRecord.text = ""
+        tvAvgSpeedRecord.text = ""
+        tvMaxSpeedRecord.text = ""
+
         swIntervalMode = findViewById(R.id.swIntervalMode)
         swChallenges = findViewById(R.id.swChallenges)
         swVolumes = findViewById(R.id.swVolumes)
+
+        npDurationInterval = findViewById(R.id.npDurationInterval)
+        tvRunningTime = findViewById(R.id.tvRunningTime)
+        tvWalkingTime = findViewById(R.id.tvWalkingTime)
+        csbRunWalk = findViewById(R.id.csbRunWalk)
 
         npChallengeDistance = findViewById(R.id.npChallengeDistance)
         npChallengeDurationHH = findViewById(R.id.npChallengeDurationHH)
         npChallengeDurationMM = findViewById(R.id.npChallengeDurationMM)
         npChallengeDurationSS = findViewById(R.id.npChallengeDurationSS)
+
+        csbRunWalk.setOnSeekBarChangeListener(object: OnCircularSeekBarChangeListener {
+
+            override fun onProgressChanged(circularSeekBar: CircularSeekBar, progress: Float, fromUser: Boolean) {
+                var STEPS_UX: Int = 15
+                var set: Int = 0
+                var p = progress.toInt()
+
+                if (p%STEPS_UX != 0){
+                    while (p >= 60) p -= 60
+                    while (p >= STEPS_UX) p -= STEPS_UX
+                    if (STEPS_UX-p > STEPS_UX/2) set = -1 * p
+                    else set = STEPS_UX-p
+
+                    csbRunWalk.progress = csbRunWalk.progress + set
+                }
+            }
+
+            override fun onStopTrackingTouch(seekBar: CircularSeekBar?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onStartTrackingTouch(seekBar: CircularSeekBar?) {
+                TODO("Not yet implemented")
+            }
+        })
 
     }
 
